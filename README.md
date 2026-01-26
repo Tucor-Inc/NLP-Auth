@@ -79,8 +79,11 @@ Password: ********
 
 Fetching interfaces...
 
-🟢 id=79054  tucor-test-nlp   state=3  ip=192.0.1.44
-⚫ id=12345  field-backup     state=0  ip=
+🟢 id=79054  tucor-test-nlp   state=1  ip=192.0.1.44
+🟡 id=79055  field-east      state=2  ip=192.0.1.45
+🔴 id=79056  golf-back-9     state=3  ip=192.0.1.46
+⚫ id=79057  spare           state=0  ip=
+
 
 Select a controller/interface:
 > tucor-test-nlp
