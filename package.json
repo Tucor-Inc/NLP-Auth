@@ -1,0 +1,28 @@
+{
+  "name": "tucor-nlp-auth",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Tucor NLP RPC auth client + CLI (users.login -> users.admin -> interface.search -> users.interface)",
+  "license": "MIT",
+  "engines": { "node": ">=18.18" },
+  "bin": {
+    "tucor-nlp": "./bin/tucor-nlp.js"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "fetch-cookie": "^3.1.0",
+    "inquirer": "^9.3.7",
+    "tough-cookie": "^4.1.4"
+  },
+  "scripts": {
+    "start": "node ./bin/tucor-nlp.js"
+  }
+}
