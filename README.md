@@ -30,14 +30,16 @@ This project wraps that complexity into:
 It is intended for:
 - internal tools
 - diagnostics
-- integration projects (e.g. Losant, dashboards, automation scripts)
+- third-party integration projects (e.g. Losant, dashboards, automation scripts)
 
 ---
 
 ## Requirements
 
 - Node.js **18.18+**
-- Internet access to `https://tucor.irrigation.online`
+- Internet access to NLPNet `https://tucor.irrigation.online`
+- An NLP controller or interface with internet access to NLPNet
+- NLPNet user credentials
 
 ---
 
