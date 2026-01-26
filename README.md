@@ -1,7 +1,7 @@
 # Tucor NLP Auth CLI & Client
 
 A Node.js library and command-line tool for authenticating with **Tucor NLP controllers**
-via the Tucor Cloud JSON-RPC API.
+via the Tucor NLPNet JSON-RPC API.
 
 This project implements the full authentication flow required by the NLP platform:
 
