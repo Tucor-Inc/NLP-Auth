@@ -8,6 +8,17 @@ function stateToOnline(state) {
   return Number(state) !== 0; // your rule
 }
 
+function stateIcon(state) {
+  switch (Number(state)) {
+    case 0: return "⚫"; // offline
+    case 1: return "🟢"; // online
+    case 2: return "🟡"; // online with warning
+    case 3: return "🔴"; // online with error
+    default: return "❓";
+  }
+}
+
+
 function toRow(item) {
   return {
     id: item.id,
@@ -61,9 +72,10 @@ function toRow(item) {
       message: "Select a controller/interface:",
       pageSize: 20,
       choices: rows.map(r => ({
-        name: `${r.online ? "🟢" : "⚫"} id=${r.id}  ${r.hostname}  state=${r.state}  ip=${r.ip}`,
-        value: r.id
+      name: `${stateIcon(r.state)} id=${r.id}  ${r.hostname}  state=${r.state}  ip=${r.ip}`,
+      value: r.id
       }))
+
     }
   ]);
 
