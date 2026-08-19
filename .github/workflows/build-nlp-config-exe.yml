@@ -22,6 +22,23 @@ jobs:
         with:
           node-version: "26"
 
+      - name: Reconstruct SEA source and embedded UI asset
+        working-directory: NLP-Config-EXE-Build
+        shell: pwsh
+        run: |
+          function Join-Parts([string]$Pattern, [string]$OutputPath) {
+            $parts = Get-ChildItem -Path $Pattern | Sort-Object Name
+            if (-not $parts) { throw "No parts found for $Pattern" }
+            $joined = ($parts | ForEach-Object { Get-Content $_.FullName -Raw }) -join ''
+            [System.IO.File]::WriteAllBytes($OutputPath, [Convert]::FromBase64String($joined))
+          }
+
+          Join-Parts "parts/sea.*.part" "sea-main.js"
+          Join-Parts "parts/html.*.part" "index.html.br.b64"
+
+          node --check sea-main.js
+          if (-not (Test-Path "index.html.br.b64")) { throw "Embedded UI asset was not reconstructed." }
+
       - name: Build Windows single executable
         working-directory: NLP-Config-EXE-Build
         shell: pwsh
