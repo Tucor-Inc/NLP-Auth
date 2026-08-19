@@ -1,0 +1,53 @@
+name: Build NLP Configuration Utility EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/nlp-config-exe-v25.8
+    paths:
+      - "NLP-Config-EXE-Build/**"
+      - ".github/workflows/build-nlp-config-exe.yml"
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 26
+        uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+
+      - name: Build Windows single executable
+        working-directory: NLP-Config-EXE-Build
+        shell: pwsh
+        run: |
+          node --version
+          node --build-sea sea-config.json
+          if (-not (Test-Path "NLP Configuration Utility.exe")) { throw "SEA build did not produce the EXE." }
+
+      - name: Hide console window
+        working-directory: NLP-Config-EXE-Build
+        shell: pwsh
+        run: |
+          ./patch-gui-subsystem.ps1 -Path "NLP Configuration Utility.exe"
+
+      - name: Generate checksum
+        working-directory: NLP-Config-EXE-Build
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash "NLP Configuration Utility.exe" -Algorithm SHA256).Hash.ToLower()
+          "$hash  NLP Configuration Utility.exe" | Out-File -Encoding ascii SHA256.txt
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: NLP-Configuration-Utility-v25.8-Windows
+          path: |
+            NLP-Config-EXE-Build/NLP Configuration Utility.exe
+            NLP-Config-EXE-Build/SHA256.txt
+          if-no-files-found: error
