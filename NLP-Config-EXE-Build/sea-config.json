@@ -1,0 +1,7 @@
+{
+  "main": "sea-main.js",
+  "output": "NLP Configuration Utility.exe",
+  "assets": {
+    "index.html.br.b64": "index.html.br.b64"
+  }
+}
